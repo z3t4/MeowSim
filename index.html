@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>FF14 Simulator</title>
+
+<style>
+:root{
+    --circle-size:200px;
+    --gap:5cm; /* espace souhaité entre les deux cercles */
+}
+
+body{
+    margin:0;
+    background:#1e1e1e;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+
+.screen{
+    display:none;
+    width:100vw;
+    height:100vh;
+    position:relative;
+}
+
+/* make active screens flex so centering rules work for title */
+.screen.active{
+    display:flex;
+}
+
+#titleScreen{
+    justify-content:center;
+    align-items:center;
+}
+
+.partyGrid{
+    display:grid;
+    grid-template-columns:repeat(4,100px);
+    column-gap:20px;
+    row-gap:5cm; /* espacement vertical entre les deux lignes */
+    text-align:center;
+}
+
+.partyMember{
+    border:1px solid white;
+    padding:15px;
+    cursor:pointer;
+    position:relative; /* allow absolute symbol placement under each member */
+}
+
+.partyMember.selected{
+    outline: 3px solid gold;
+}
+
+/* symbol shown under partyMember during pre-sequence */
+.symbol{
+    position:absolute;
+    left:50%;
+    /* place symbol whose bottom sits a little above the member box top
+       use a translate on Y so the symbol aligns correctly regardless of its height */
+    top: 0;
+    transform: translate(-50%, calc(-100% - 8px));
+    z-index: 20;
+    pointer-events:none;
+}
+.symbol.circle{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:#ffffff;
+    display:block;
+}
+.symbol.plus{
+    width:20px;
+    height:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#ffffff;
+    font-weight:bold;
+    font-size:16px;
+}
+.symbol.cone{
+    width:0;
+    height:0;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    border-bottom:18px solid #ffffff; /* triangle pointing down */
+    display:block;
+}
+
+.arena{
+    position:relative;
+    width:100%;
+    height:100%;
+}
+
+/* circles sized by variable and positioned with gap */
+.circle{
+    position:absolute;
+    width:var(--circle-size);
+    height:var(--circle-size);
+    border:3px solid white;
+    border-radius:50%;
+    top:50%;
+    transform:translateY(-50%); /* center vertically */
+}
+
+/* left and right circles positioned relative to center with desired gap */
+#leftCircle{
+    left: calc(50% - (var(--gap) / 2) - (var(--circle-size) / 2));
+}
+
+#rightCircle{
+    left: calc(50% + (var(--gap) / 2) - (var(--circle-size) / 2));
+}
+
+.position{
+    position:absolute;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:10px;
+    color:black;
+    cursor:pointer;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.6);
+    z-index:5; /* be on top of circle borders */
+    pointer-events:auto;
+}
+
+.position.correct{
+    background: #66cc66 !important;
+    border-color: #2e8b57 !important;
+}
+
+.label{
+    position:absolute;
+    top:25px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:24px;
+}
+
+/* pair list shown on arena screens */
+.pairList{
+    position:absolute;
+    /* place vertically centered, to the right side of the arena next to the right circle */
+    left: calc(50% + (var(--gap) / 2) + (var(--circle-size) / 2) + 8px + 3cm);
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    z-index:60;
+    pointer-events:none; /* non clickable */
+}
+.pairItem{
+    display:flex;
+    gap:12px;
+}
+.playerBox{
+    padding:12px 20px; /* ~2x bigger */
+    background:rgba(255,255,255,0.06);
+    color:white;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.06);
+    font-size:18px; /* larger text */
+    pointer-events:none;
+    position:relative; /* allow symbols above these boxes */
+}
+.playerBox.active{
+    background:gold;
+    color:black;
+    border-color:goldenrod;
+    font-weight:bold;
+}
+
+/* symbols rendered above pair boxes when drawn mid-sequence */
+.pairSymbol{
+    position:absolute;
+    left:50%;
+    top: -36px;
+    transform: translateX(-50%);
+    pointer-events:none;
+}
+</style>
+</head>
+<body>
+
+<!-- Ecran titre -->
+<div id="titleScreen" class="screen active">
+    <div class="partyGrid">
+
+        <div class="partyMember">H1</div>
+        <div class="partyMember">MT</div>
+        <div class="partyMember">M1</div>
+        <div class="partyMember">R1</div>
+
+        <div class="partyMember">H2</div>
+        <div class="partyMember">OT</div>
+        <div class="partyMember">M2</div>
+        <div class="partyMember">R2</div>
+
+    </div>
+</div>
+
+<!-- Arène -->
+<div id="arenaScreen" class="screen">
+    <div class="arena">
+
+        <div class="label" id="phaseLabel"></div>
+
+        <div class="circle" id="leftCircle"></div>
+        <div class="circle" id="rightCircle"></div>
+
+        <div id="positionsContainer"></div>
+    <div class="pairList" id="pairList"></div>
+
+    </div>
+</div>
+
+<!-- Overlay for messages like ERREUR -->
+<div id="messageOverlay" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;pointer-events:auto;z-index:10000;">
+    <div id="messageBox" style="margin:auto;padding:20px 40px;background:rgba(0,0,0,0.92);color:#ff6666;font-size:48px;font-weight:bold;border:3px solid #ff3333;border-radius:8px;pointer-events:auto;text-align:center;max-width:90%;">
+        ERREUR
+    </div>
+</div>
+
+<script src="param.js"></script>
+<script src="resolutions.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
