@@ -50,17 +50,17 @@ const POSITIONS = {
   // Ecran impair (7 positions)
   odd: [
     // 1. juste au-dessus du cercle gauche (près du bord supérieur)
-    { anchor: "left",  dx: 0,   dy: -140, label: "FT1" },
+    { anchor: "left",  dx: 0,   dy: 120, label: "FT1" },
     // 2. en haut du cercle de gauche (plus haut que le bord)
-    { anchor: "left",  dx: 0,   dy: -80, label: "LC1" },
+    { anchor: "left",  dx: 45,   dy: -55, label: "LC1" },
     // 3. bas interne gauche (environ à moitié entre le bord et le centre)
     { anchor: "left",  dx: 0,   dy: 50,   label: "LS1" },
     // 4. juste en dessous du cercle de gauche
-    { anchor: "left",  dx: 0,   dy: 120,  label: "FH1" },
+    { anchor: "left",  dx: 90,   dy: -85,  label: "FH1" },
     // 5. entre les deux cercles, mais plus proche du droit
-    { anchor: "between", dx: 15, dy: 0,    label: "FD1" },
+    { anchor: "between", dx: 15, dy: 40,    label: "FD1" },
     // 6. dans le cercle de droite mais sur la gauche du cercle
-    { anchor: "right", dx: -75, dy: 0,    label: "RS1" },
+    { anchor: "right", dx: -75, dy: 30,    label: "RS1" },
     // 7. dans le cercle de droite mais sur la droite du cercle
     { anchor: "right", dx: 75,  dy: 0,    label: "RP1" }
   ],
@@ -72,17 +72,17 @@ const POSITIONS = {
     // 2. nord du centre des deux cercles, assez loin, un peu à droite
     { anchor: "between", dx:  80, dy: -300, label: "FM2" },
     // 3. nord-ouest du cercle de gauche
-    { anchor: "left",    dx: -75, dy: -105, label: "FH2" },
+    { anchor: "left",    dx: -100, dy: -60, label: "FH2" },
     // 4. en haut du cercle de gauche
     { anchor: "left",    dx: 40,   dy: -80, label: "LC2" },
     // 5. en bas du cercle de gauche
-    { anchor: "left",    dx: 0,   dy: 90,  label: "LP2" },
+    { anchor: "left",    dx: -50,   dy: 70,  label: "LP2" },
     // 6. nord-est du cercle de droite
-    { anchor: "right",   dx: 75,  dy: -105, label: "FR2" },
+    { anchor: "right",   dx: 100,  dy: -60, label: "FR2" },
     // 7. en haut du cercle de droite
     { anchor: "right",   dx: -40,   dy: -80, label: "RC2" },
     // 8. en bas du cercle de droite
-    { anchor: "right",   dx: 0,   dy: 90,  label: "RP2" }
+    { anchor: "right",   dx: 50,   dy: 70,  label: "RP2" }
   ],
 
   // Ecran bait (2 positions)

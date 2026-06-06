@@ -34,54 +34,8 @@ const RESOLUTION_RULES = {
     ]
   }
   ,
-  // even-screen rules for sets 2 and 8
-  even2_8: {
-    A: [
-      // simple role + symbol rules
-      { role: 'H1', playerHas: 'cone', pos: 'LC2' },
-      { role: 'H2', playerHas: 'cone', pos: 'LC2' },
-      { role: 'H1', playerHas: 'circle', pos: 'LP2' },
-      { role: 'H2', playerHas: 'circle', pos: 'LP2' },
 
-      { role: 'R1', playerHas: 'cone', pos: 'RC2' },
-      { role: 'R2', playerHas: 'cone', pos: 'RC2' },
-      { role: 'R1', playerHas: 'circle', pos: 'RP2' },
-      { role: 'R2', playerHas: 'circle', pos: 'RP2' },
-
-      // MT / OT with same/different partner symbol
-      { role: 'MT', sameAsPartner: false, playerHas: 'cone', pos: 'LC2' },
-      { role: 'OT', sameAsPartner: false, playerHas: 'cone', pos: 'LC2' },
-      { role: 'MT', sameAsPartner: false, playerHas: 'circle', pos: 'LP2' },
-      { role: 'OT', sameAsPartner: false, playerHas: 'circle', pos: 'LP2' },
-
-      { role: 'MT', sameAsPartner: true, playerHas: 'cone', pos: 'RC2' },
-      { role: 'OT', sameAsPartner: true, playerHas: 'cone', pos: 'RC2' },
-      { role: 'MT', sameAsPartner: true, playerHas: 'circle', pos: 'RP2' },
-      { role: 'OT', sameAsPartner: true, playerHas: 'circle', pos: 'RP2' },
-
-      // M1 / M2 with same/different partner symbol
-      { role: 'M1', sameAsPartner: false, playerHas: 'cone', pos: 'RC2' },
-      { role: 'M2', sameAsPartner: false, playerHas: 'cone', pos: 'RC2' },
-      { role: 'M1', sameAsPartner: false, playerHas: 'circle', pos: 'RP2' },
-      { role: 'M2', sameAsPartner: false, playerHas: 'circle', pos: 'RP2' },
-
-      { role: 'M1', sameAsPartner: true, playerHas: 'cone', pos: 'LC2' },
-      { role: 'M2', sameAsPartner: true, playerHas: 'cone', pos: 'LC2' },
-      { role: 'M1', sameAsPartner: true, playerHas: 'circle', pos: 'LP2' },
-      { role: 'M2', sameAsPartner: true, playerHas: 'circle', pos: 'LP2' }
-    ],
-    B: [
-      // straightforward role mapping for pattern B
-      { role: 'MT', pos: 'FT2' },
-      { role: 'OT', pos: 'FT2' },
-      { role: 'H1', pos: 'FH2' },
-      { role: 'H2', pos: 'FH2' },
-      { role: 'M1', pos: 'FM2' },
-      { role: 'M2', pos: 'FM2' },
-      { role: 'R1', pos: 'FR2' },
-      { role: 'R2', pos: 'FR2' }
-    ]
-  },
+  
   // odd screen rules for set 3
   odd3: {
     A: [
@@ -153,7 +107,55 @@ const RESOLUTION_RULES = {
       { role: 'M2', playerHas: 'plus', sameAsPartner: true, pos: 'LS1' }
     ]
   },
-  // odd7 removed (same as odd5)
+
+  // even-screen rules for sets 2 and 8
+  even2_8: {
+    A: [
+      // simple role + symbol rules
+      { role: 'H1', playerHas: 'cone', pos: 'LC2' },
+      { role: 'H2', playerHas: 'cone', pos: 'LC2' },
+      { role: 'H1', playerHas: 'circle', pos: 'LP2' },
+      { role: 'H2', playerHas: 'circle', pos: 'LP2' },
+
+      { role: 'R1', playerHas: 'cone', pos: 'RC2' },
+      { role: 'R2', playerHas: 'cone', pos: 'RC2' },
+      { role: 'R1', playerHas: 'circle', pos: 'RP2' },
+      { role: 'R2', playerHas: 'circle', pos: 'RP2' },
+
+      // MT / OT with same/different partner symbol
+      { role: 'MT', sameAsPartner: false, playerHas: 'cone', pos: 'LC2' },
+      { role: 'OT', sameAsPartner: false, playerHas: 'cone', pos: 'LC2' },
+      { role: 'MT', sameAsPartner: false, playerHas: 'circle', pos: 'LP2' },
+      { role: 'OT', sameAsPartner: false, playerHas: 'circle', pos: 'LP2' },
+
+      { role: 'MT', sameAsPartner: true, playerHas: 'cone', pos: 'RC2' },
+      { role: 'OT', sameAsPartner: true, playerHas: 'cone', pos: 'RC2' },
+      { role: 'MT', sameAsPartner: true, playerHas: 'circle', pos: 'RP2' },
+      { role: 'OT', sameAsPartner: true, playerHas: 'circle', pos: 'RP2' },
+
+      // M1 / M2 with same/different partner symbol
+      { role: 'M1', sameAsPartner: false, playerHas: 'cone', pos: 'RC2' },
+      { role: 'M2', sameAsPartner: false, playerHas: 'cone', pos: 'RC2' },
+      { role: 'M1', sameAsPartner: false, playerHas: 'circle', pos: 'RP2' },
+      { role: 'M2', sameAsPartner: false, playerHas: 'circle', pos: 'RP2' },
+
+      { role: 'M1', sameAsPartner: true, playerHas: 'cone', pos: 'LC2' },
+      { role: 'M2', sameAsPartner: true, playerHas: 'cone', pos: 'LC2' },
+      { role: 'M1', sameAsPartner: true, playerHas: 'circle', pos: 'LP2' },
+      { role: 'M2', sameAsPartner: true, playerHas: 'circle', pos: 'LP2' }
+    ],
+    B: [
+      // straightforward role mapping for pattern B
+      { role: 'MT', pos: 'FT2' },
+      { role: 'OT', pos: 'FT2' },
+      { role: 'H1', pos: 'FH2' },
+      { role: 'H2', pos: 'FH2' },
+      { role: 'M1', pos: 'FM2' },
+      { role: 'M2', pos: 'FM2' },
+      { role: 'R1', pos: 'FR2' },
+      { role: 'R2', pos: 'FR2' }
+    ]
+  },
 
   // even-screen rules for sets 4 and 6
   even4_6: {

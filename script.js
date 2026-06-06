@@ -26,18 +26,6 @@
     
   }
 
-  function hidePairElements() {
-    const selectors = [
-        '#pairList > div > div.playerBox.active > div',
-        '#pairList > div > div:nth-child(1) > div'
-    ];
-
-    selectors.forEach(selector => {
-        document.querySelectorAll(selector).forEach(element => {
-            element.style.display = 'none';
-        });
-    });
-    }
   // render title UI: clear selection visuals and show title
   function renderTitle(){
     document.querySelectorAll('.partyMember').forEach(m=>m.classList.remove('selected'));
@@ -718,7 +706,6 @@
             document.querySelectorAll('.partyMember').forEach(m=>m.classList.remove('selected'));
             cinematicRunning = false;
             currentSeqIndex = -1;
-            //showScreen('titleScreen');
           }, errDur);
         } else {
           // correct: visually mark the clicked box green
